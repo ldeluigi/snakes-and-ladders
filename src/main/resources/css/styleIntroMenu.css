@@ -1,0 +1,37 @@
+.root {
+    -fx-background: #f7f76d;
+}
+
+.borderPane {
+
+}
+
+.button {
+    -fx-background-color: White;
+    -fx-border-radius: 10;
+}
+
+.upperGameNameHeader {
+    -fx-text-fill: white;
+    -fx-font: bold italic 40pt "Arial";
+}
+
+.startGame {
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+    -fx-background-color: #cc6a0c;
+    -fx-font: bold italic 15pt "Arial";
+}
+
+.table-view {
+    -fx-font: bold italic 11pt "Arial";
+    -fx-background-color: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: #ff9e42;
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: white;
+}
