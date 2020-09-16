@@ -37,7 +37,7 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   )
 
   val snakeMap: Map[Int, Int] = Map(17 -> 1, 19 -> 4, 27 -> 7)
-  val ladderMap: Map[Int, Int] = Map(4 -> 13, 12 -> 20, 6 -> 24)
+  val ladderMap: Map[Int, Int] = Map(4 -> 16, 11 -> 25, 18 -> 19)
 
   The tiles (snakeMap.keys.toList: _*) have group(snakeHead)
   The tiles (snakeMap.values.toList: _*) have group(snakeTail)
@@ -50,7 +50,7 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
 
   Players loseTurn priority is 10
 
-  Each turn players are (always allowed to roll 2 movementDice "six-faced" as "roll a dice" priority 5)
+  Each turn players are (always allowed to roll 1 movementDice "six-faced" as "roll a dice" priority 5)
 
   //To win you must reach tile 30 exactly.
   // If your dice roll is more than you need then you move in to tile 30 bounce back out again,
@@ -79,4 +79,10 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   ) andThen consume && save
 
 
+  Include these system behaviours(
+    MovementWithDice,
+    MultipleStep,
+    Teleport,
+    VictoryManager
+  )
 }
