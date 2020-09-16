@@ -37,9 +37,12 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   )
 
   val snakeMap: Map[Int, Int] = Map(17 -> 1, 19 -> 4, 27 -> 7)
+  val ladderMap: Map[Int, Int] = Map(4 -> 13, 12 -> 20, 6 -> 24)
 
   The tiles (snakeMap.keys.toList: _*) have group(snakeHead)
   The tiles (snakeMap.values.toList: _*) have group(snakeTail)
+  The tiles (ladderMap.keys.toList: _*) have group(bottomLadder)
+  The tiles (ladderMap.values.toList: _*) have group(topLadder)
 
   Players start on tile 1
 
@@ -67,6 +70,12 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   always when numberOf(events[StopOnTileEvent] matching (e => e.tile.definition.belongsTo(snakeHead))) is (_ > 0) resolve(
     displayMessage("You ended up on a snake's head!", "You will slide back down to the snake's tail."),
     trigger((e, s) => TeleportEvent(s.getTile(snakeMap(e.tile.definition.number.get)).get, e.player, s.currentTurn, s.currentCycle))
+  ) andThen consume && save
+
+  //When you land on a ladder bottom tile you climb up to its top!
+  always when numberOf(events[StopOnTileEvent] matching (e => e.tile.definition.belongsTo(bottomLadder))) is (_ > 0) resolve(
+    displayMessage("You ended up on a ladder!", "You will climb up to its top!"),
+    trigger((e, s) => TeleportEvent(s.getTile(ladderMap(e.tile.definition.number.get)).get, e.player, s.currentTurn, s.currentCycle))
   ) andThen consume && save
 
 
