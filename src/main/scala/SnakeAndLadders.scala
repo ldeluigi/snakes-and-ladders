@@ -1,6 +1,6 @@
-import scalafx.scene.paint.Color._
 import untitled.goose.framework.dsl.GooseDSL
 import untitled.goose.framework.dsl.board.words.DispositionType.Snake
+import untitled.goose.framework.model.Colour.Default.{Orange, White, Yellow}
 import untitled.goose.framework.model.entities.runtime.GameStateExtensions._
 import untitled.goose.framework.model.events.consumable._
 import untitled.goose.framework.model.events.persistent.TileActivatedEvent
@@ -16,8 +16,8 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   The game board has size(30)
   the game board has disposition(Snake)
 
-  The tiles(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29) have color(Orange)
-  The tiles(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30) have color(White)
+  The tiles(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29) have colour(Orange)
+  The tiles(2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30) have colour(White)
 
   The tiles(7, 12, 13, 18, 19, 24) have background("ladder.png")
   The tile 27 has background("snakeOne.png")
@@ -38,7 +38,7 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   The tile 30 has(
     name(theEnd),
     background("victory.png"),
-    color(Gold)
+    colour(Yellow)
   )
 
   val snakeMap: Map[Int, Int] = Map(28 -> 2)
