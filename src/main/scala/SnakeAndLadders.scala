@@ -1,10 +1,10 @@
 import untitled.goose.framework.dsl.GooseDSL
 import untitled.goose.framework.dsl.board.words.DispositionType.Snake
 import untitled.goose.framework.model.Colour.Default.{Orange, White, Yellow}
+import untitled.goose.framework.model.entities.definitions.PlayerOrderingType.Fixed
 import untitled.goose.framework.model.entities.runtime.GameStateExtensions._
 import untitled.goose.framework.model.events.consumable._
 import untitled.goose.framework.model.events.persistent.TileActivatedEvent
-import untitled.goose.framework.model.rules.ruleset.PlayerOrderingType.Fixed
 
 object SnakeAndLadders extends GooseDSL with CustomValues {
 
