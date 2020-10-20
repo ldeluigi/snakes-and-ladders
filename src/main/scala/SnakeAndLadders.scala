@@ -1,8 +1,9 @@
 import untitled.goose.framework.dsl.GooseDSL
 import untitled.goose.framework.dsl.board.words.DispositionType.Snake
-import untitled.goose.framework.model.Colour.Default.{Orange, White, Yellow}
+import untitled.goose.framework.model.Colour
+import untitled.goose.framework.model.Colour.Default.{Orange, White}
 import untitled.goose.framework.model.entities.definitions.PlayerOrderingType.Fixed
-import untitled.goose.framework.model.entities.runtime.GameStateExtensions._
+import untitled.goose.framework.model.entities.runtime.functional.GameStateExtensions.PimpedGameState
 import untitled.goose.framework.model.events.consumable._
 import untitled.goose.framework.model.events.persistent.TileActivatedEvent
 
@@ -38,7 +39,7 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   The tile 30 has(
     name(theEnd),
     background("victory.png"),
-    colour(Yellow)
+    colour(Colour(212, 175, 55))
   )
 
   val snakeMap: Map[Int, Int] = Map(28 -> 2)
@@ -72,15 +73,15 @@ object SnakeAndLadders extends GooseDSL with CustomValues {
   ) andThen consume
 
   //When you land on a snake head tile you must slide down the snake body!
-  always when numberOf(events[StopOnTileEvent] matching (e => e.tile.definition.belongsTo(snakeHead))) is (_ > 0) resolve(
+  always when numberOf(events[StopOnTileEvent] matching (e => e.tile.belongsTo(snakeHead))) is (_ > 0) resolve(
     displayMessage("You ended up on a snake's head!", "You will slide back down to the snake's tail."),
-    trigger((e, s) => TeleportEvent(s.getTile(snakeMap(e.tile.definition.number.get)).get, e.player, s.currentTurn, s.currentCycle))
+    trigger((e, s) => TeleportEvent(s.getTile(snakeMap(e.tile.number.get)).get.definition, e.player, s.currentTurn, s.currentCycle))
   ) andThen consume && save
 
   //When you land on a ladder bottom tile you climb up to its top!
-  always when numberOf(events[StopOnTileEvent] matching (e => e.tile.definition.belongsTo(bottomLadder))) is (_ > 0) resolve(
+  always when numberOf(events[StopOnTileEvent] matching (e => e.tile.belongsTo(bottomLadder))) is (_ > 0) resolve(
     displayMessage("You ended up on a ladder!", "You will climb up to its top!"),
-    trigger((e, s) => TeleportEvent(s.getTile(ladderMap(e.tile.definition.number.get)).get, e.player, s.currentTurn, s.currentCycle))
+    trigger((e, s) => TeleportEvent(s.getTile(ladderMap(e.tile.number.get)).get.definition, e.player, s.currentTurn, s.currentCycle))
   ) andThen consume && save
 
 

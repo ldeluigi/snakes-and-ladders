@@ -1,6 +1,7 @@
-import untitled.goose.framework.model.entities.runtime.GameStateExtensions._
-import untitled.goose.framework.model.entities.runtime.{GameState, Tile}
+import untitled.goose.framework.model.entities.definitions.TileDefinition
+import untitled.goose.framework.model.entities.runtime.GameState
 import untitled.goose.framework.model.events.persistent.TurnEndedEvent
+import untitled.goose.framework.model.entities.runtime.functional.HistoryExtensions.PimpedHistory
 
 trait CustomValues {
   val gooseGroup = "GooseTile"
@@ -11,8 +12,8 @@ trait CustomValues {
   val theEnd = "the End"
 
 
-  def tileIs(name: String): Tile => Boolean = _.definition.name.contains(name)
+  def tileIs(name: String): TileDefinition => Boolean = _.name.contains(name)
 
   //TODO why not autoimport of extensions?
-  def isPlayerFirstTurn: GameState => Boolean = _.currentPlayer.history.only[TurnEndedEvent].isEmpty
+  def isPlayerFirstTurn: GameState => Boolean = s => s.players(s.currentPlayer).history.only[TurnEndedEvent].isEmpty
 }
